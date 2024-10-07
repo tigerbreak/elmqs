@@ -15,6 +15,9 @@
           <!-- url '...' 是Django规定的模板解耦语法，用它可以根据我们在urls.py中设置的名字（是name，不是url奥），反向解析到对应的url中去。标点要注意是单引号 -->
           <a class="nav-link" href='{% url 'article:article_list' %}'>文章</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'article:article_create' %}">写文章</a>
+        </li>
       </ul>
     </div>
 
