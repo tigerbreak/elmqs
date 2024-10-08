@@ -13,11 +13,30 @@
         <li class="nav-item">
           <!--增加了了返回列表主页的超链接  前面的article是在项目根目录的urls.py中定义的app的名称 后面的article_list是在app中的urls.py中定义的具体的路由地址（name名称）-->
           <!-- url '...' 是Django规定的模板解耦语法，用它可以根据我们在urls.py中设置的名字（是name，不是url奥），反向解析到对应的url中去。标点要注意是单引号 -->
-          <a class="nav-link" href='{% url 'article:article_list' %}'>文章</a>
+          <a class="nav-link" href='{% url 'article:article_list' %}'>文章列表</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'article:article_create' %}">写文章</a>
         </li>
+        <!-- Django的 if 模板语句 -->
+        {% if user.is_authenticated %}
+        <!-- 如果用户已经登录，则显示用户名下拉框 -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href='{% url "userprofile:logout" %}'>退出登录</a>
+          </div>
+        </li>
+        <!-- 如果用户未登录，则显示 “登录” -->
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userprofile:login' %}">登录</a>
+        </li>
+        <!-- if 语句在这里结束 -->
+        {% endif %}
+
       </ul>
     </div>
 
