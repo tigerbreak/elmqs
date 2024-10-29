@@ -15,8 +15,22 @@
                     <input type="text" class="form-control" id="title" name="title" >
 
                 </div>
+                <!-- 文章主题 -->
                 <div class="form-group">
-                    <label for="body">文章标题</label>
+                    <label for="topic">主题</label>
+                    <select class="form-control"
+                            id="topic"
+                            name="topic"
+                    >
+                        <option value="none">请选择栏目..</option>
+                        {% for topic in topics %}
+                        <option value="{{ topic.id }}">{{ topic }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="body">文章内容</label>
                     <!-- 文本框，关键是name字段，方便form识别-->
                     <textarea type="text" class="form-control" id="body" name="body" rows="12"></textarea>
                 </div>

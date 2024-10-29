@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row">
+
+
+    <div class="col-3">
+      <h2>主题层级目录</h2>
+      <ul>
+        {% for topic in topic_hierarchy %}
+        <li>{{ topic.title }}</li>  <!-- 显示每个主题的标题 -->
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- 标题及作者 -->
+    <!-- 文章标题及作者 -->
+    <div class="col-9">
+      <h1 class="mt-4 mb-4">{{ article.title }}</h1>
+      <div class="alert alert-success">
+        作者：{{ article.author }}
+        <a href="#" onclick="confirm_delete()" class="btn btn-danger">删除文章</a>
+        <a href="{% url 'article:article_update' article.id %}">编辑文章</a>
+      </div>
+
+    <script>
+      // 删除文章的函数
+      function confirm_delete() {
+        // 调用layer弹窗组件
+        layer.open({
+          // 弹窗标题
+          title: "确认删除",
+          // 正文
+          content: "确认删除这篇文章吗？",
+          // 点击确定按钮后调用的回调函数
+          yes: function(index, layero) {
+            // 指定应当前往的 url
+            location.href='{% url "article:article_delete" article.id %}'
+          },
+        })
+      }
+    </script>
+
+
+    <!-- 文章正文 -->
+    <div class="col-9">
+      <!-- article.body 后加上 |safe 过滤器，Django出于安全的考虑，会将输出的HTML代码进行转义，**这使得article.body中渲染的HTML文本无法正常显示。**管道符|是Django中过滤器的写法，而|safe就类似给article.body贴了一个标签，表示这一段字符不需要进行转义了。-->
+      <div>{{ article.body | safe }}</div>
+    </div>
+
+    <div class="col-3 mt-0">
+      <h4><strong>目录</strong></h4>
+      <hr>
+      <div>
+        {{ toc|safe }}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+首页
+{% endblock title %}
+
+
+{% block content %}
+
+<ul>
+    {% for topic in top_level_topics  %}
+    <li>
+        <h4>{{ topic.title }}</h4>
+    </li>
+    {% endfor %}
+{% endblock content %}
